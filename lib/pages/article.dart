@@ -43,8 +43,6 @@ class _ArticleState extends State<Article> {
     return Scaffold(
       backgroundColor: Colors.grey[600],
       body: SingleChildScrollView(
-
-
           // Center is a layout widfdsget. It takes a single child and positions it
           // in the middle of the parent.
           child: Column(

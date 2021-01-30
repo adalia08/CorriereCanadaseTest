@@ -7,8 +7,9 @@ void main() {
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
-      '/': (context) => Article(),
-      '/browse': (context) => Browse(),
+      '/': (context) => Browse(),
+      '/browse': (context) => Explore(),
+      '/article': (context) => Article()
     },
   ));
 }

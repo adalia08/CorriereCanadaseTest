@@ -4,6 +4,15 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:corriere_app/services/pull.dart';
 
+class Header {
+  String title;
+  String imUrl;
+  String author;
+
+  Header({this.title, this.imUrl, this.author});
+}
+
+
 class Browse extends StatefulWidget {
   @override
   _BrowseState createState() => _BrowseState();
@@ -12,16 +21,10 @@ class Browse extends StatefulWidget {
 class _BrowseState extends State<Browse> {
 
 
-  List<String> articles  = [
-    "Events",
-    "Ad-campaigns",
-    "Chiesa2000",
-    "Interviste",
-    "Le Poesie",
-    "Editoriali",
-    "English Articles",
-    "Politica",
-    "Controsport"
+  List<Header> articles  = [
+    Header(title: "DCDSB, Tricia Chapman si dimette Requisiti cattolici per sostituirla", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/Durhan-768x261.jpg", author: "di corriere canadese il January 28, 2021"),
+    Header(title: "Ipotesi voto anticipato: stallo Trudeau, O’Toole e Singh non convincono", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/ottawa-28-01-21.jpg", author: "di Francesco Veronesi del January 28, 2021"),
+    Header(title: "LTC, i fondi ci sono ma il governo non li usa", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/home-27-01-21-300x146.jpg", author: "di Mariella Policheni il January 27, 2021")
   ];
 
 
@@ -45,32 +48,46 @@ class _BrowseState extends State<Browse> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      body: Column(
-        children: <Widget> [
-           Center(
-             child: Padding(
-               padding: const EdgeInsets.all(20.0),
+      body: ListView.builder(
+        itemCount: articles.length,
+        itemBuilder: (context, index){
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Colors.green[300],
+                  width: 3,
+                ),
+              ),
+              child: Card(
 
-                 child: InkWell(
-                   onTap: (){
-                     print("touched");
-                     update();
-                   },
-                   child: Container(
-                     height: 100,
-                     width: 100,
-                     child: Card(
-                       child: Text("Click Here for the Article!!"),
-                       margin: EdgeInsets.all(20.0),
-                     ),
-                   ),
-                 ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      onTap: () async{
+                        dynamic result = await Navigator.pushNamed(context, '/article');
+                      },
+                      title: Text(
+                        articles[index].title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
 
-             ),
-           ),
-        ],
+                        ),
+                      ),
 
-      )
+                    ),
+                    Image.network(articles[index].imUrl),
+                    Text(articles[index].author)
+                  ],
+                ),
+
+              ),
+            ),
+          );
+        },
+      ),
       // body: Center(
       //   child: Padding(
       //     padding: const EdgeInsets.all(8.0),
