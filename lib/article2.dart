@@ -77,6 +77,7 @@ class _ArticleStateT extends State<ArticleT> {
                     color: Colors.grey[100],
                   ),
                 ),
+
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

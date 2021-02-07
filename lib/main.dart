@@ -6,6 +6,7 @@ import 'package:corriere_app/pages/article.dart';
 import 'package:corriere_app/article2.dart';
 
 void main() {
+
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
