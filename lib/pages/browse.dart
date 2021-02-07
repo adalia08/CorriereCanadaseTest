@@ -8,8 +8,9 @@ class Header {
   String title;
   String imUrl;
   String author;
+  String nav;
 
-  Header({this.title, this.imUrl, this.author});
+  Header({this.title, this.imUrl, this.author, this.nav});
 }
 
 
@@ -22,11 +23,17 @@ class _BrowseState extends State<Browse> {
 
 
   List<Header> articles  = [
-    Header(title: "DCDSB, Tricia Chapman si dimette Requisiti cattolici per sostituirla", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/Durhan-768x261.jpg", author: "di corriere canadese il January 28, 2021"),
-    Header(title: "Ipotesi voto anticipato: stallo Trudeau, O’Toole e Singh non convincono", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/ottawa-28-01-21.jpg", author: "di Francesco Veronesi del January 28, 2021"),
-    Header(title: "LTC, i fondi ci sono ma il governo non li usa", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/home-27-01-21-300x146.jpg", author: "di Mariella Policheni il January 27, 2021")
+    Header(title: "La ricetta del giorno: Cantucci toscani", imUrl: "https://www.corriere.ca/wp-content/uploads/cucinalogo.jpg", author: "di Ynot del February 3, 2021", nav: "/article3"),
+    Header(title: "Ipotesi voto anticipato: stallo Trudeau, O’Toole e Singh non convincono", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/ottawa-28-01-21.jpg", author: "di Francesco Veronesi del January 28, 2021", nav: "/article"),
+    Header(title: "LTC, i fondi ci sono ma il governo non li usa", imUrl: "https://www.corriere.ca/wp-content/uploads/2021/01/home-27-01-21-300x146.jpg", author: "di Mariella Policheni il January 27, 2021", nav: "/article2")
   ];
 
+
+  void jiggle(index) async {
+
+    Header instance = articles[index];
+    dynamic result = await Navigator.pushNamed(context, instance.nav);
+  }
 
    void update() async {
      Pull instance = Pull();
@@ -65,8 +72,8 @@ class _BrowseState extends State<Browse> {
                 child: Column(
                   children: [
                     ListTile(
-                      onTap: () async{
-                        dynamic result = await Navigator.pushNamed(context, '/article');
+                      onTap: (){
+                        jiggle(index);
                       },
                       title: Text(
                         articles[index].title,
