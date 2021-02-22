@@ -1,8 +1,8 @@
 <?php
-$username="corriere2";//change username
-$password="experia01"; //change password
+$username="cnmng";//change username
+$password="2o2oCNMNG"; //change password
 $host="localhost";
-$db_name="corriere2"; //change databasename
+$db_name="cnmng"; //change databasename
 
 $connect=mysqli_connect($host,$username,$password,$db_name,);
 

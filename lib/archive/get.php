@@ -1,8 +1,10 @@
 <?php
-
+header("Content-Type: text/plain; charset=ISO-8859-1");
 include "db.php";
 
-$sql = "SELECT * FROM `jos_content` ORDER BY `jos_content`.`id` DESC";
+
+$sql = "SELECT * FROM `wp_app` ORDER BY `wp_app`.`ID` DESC";
+
 
 $query = mysqli_query($connect, $sql);
 
@@ -11,15 +13,16 @@ if(!$query){
 }
 
 $array = array();
-$x =0;
 
-while($row = mysqli_fetch_assoc($query)){
 
-	$print_data = mysqli_fetch_row($query);
-	array_push($array, $print_data[2]);
-	echo $array[$x];
-	echo " split " ;
-	$x++;
+while($row = mysqli_fetch_array($query)){
 
+	for($i = 0; $i <= 13; $i++){
+
+		echo $row[$i];
+		echo " split " ;
+
+    }
 }
+
 ?>

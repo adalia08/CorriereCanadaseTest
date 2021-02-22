@@ -10,6 +10,15 @@ class Header {
   String author;
   String nav;
 
+  String date;
+  String content;
+  String im1;
+  String im2; 
+  String im3;
+  String im4;
+  String im5;
+  String video;
+
   Header({this.title, this.imUrl, this.author, this.nav});
 }
 
@@ -20,7 +29,7 @@ class Browse extends StatefulWidget {
 }
 
 class _BrowseState extends State<Browse> {
-
+  List <Article> art = new List<Article> ();
 
   List<Header> articles  = [
     Header(title: "La ricetta del giorno: Cantucci toscani", imUrl: "https://www.corriere.ca/wp-content/uploads/cucinalogo.jpg", author: "di Ynot del February 3, 2021", nav: "/article3"),
@@ -31,14 +40,14 @@ class _BrowseState extends State<Browse> {
 
   void jiggle(index) async {
 
-    Header instance = articles[index];
-    dynamic result = await Navigator.pushNamed(context, instance.nav);
+    Article instance = art[index];
+    dynamic result = await Navigator.pushNamed(context, '/article2');
   }
 
    void update() async {
      Pull instance = Pull();
      await instance.getData();
-
+     art = instance.bowser();
         // Navigator.push(article, {
         //   'photo': instance.photo
         // });
@@ -56,7 +65,7 @@ class _BrowseState extends State<Browse> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: ListView.builder(
-        itemCount: articles.length,
+        itemCount: art.length,
         itemBuilder: (context, index){
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6.0),
@@ -76,17 +85,20 @@ class _BrowseState extends State<Browse> {
                         jiggle(index);
                       },
                       title: Text(
-                        articles[index].title,
+                        art[index].title,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-
                         ),
                       ),
 
                     ),
-                    Image.network(articles[index].imUrl),
-                    Text(articles[index].author)
+                    art[index].im1 != '  ' ? Image.network(art[index].im1) : Image.network('https://cnmng.ca/wp-content/uploads/2021/02/Shieldlogo_cnmng-sm.jpg'),
+
+                    Text(art[index].author + ' ' + art[index].date),
+                    Text(art[index].cat + ' ' + art[index].lang),
+
+
                   ],
                 ),
 
