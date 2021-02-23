@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:corriere_app/services/pull.dart';
+import 'package:corriere_app/pages/browseCat.dart';
 
 class Explore extends StatefulWidget {
   @override
@@ -12,24 +13,36 @@ class Explore extends StatefulWidget {
 class _ExploreState extends State<Explore> {
 
   List<String> catagories = [
-    "Events",
-    "Ad-campaigns",
-    "Chiesa2000",
-    "Interviste",
-    "Le Poesie",
-    "Editoriali",
-    "English Articles",
-    "Politica",
-    "Controsport"
+    "EDITORIALS",
+    "GASTRONOMY",
+    "HEALTH & MEDICINE",
+    "INTERVIEWS",
+    "LAST MINUTE AND BREAKING NEWS",
+    "COMMUNITY",
+    "NEWS UPDATES",
+    "OPINION",
+    "PODCASTS",
+    "POLITICS",
+    "SHOW BIZ",
+    "SPORT",
+    "WEEK IN REVIEW"
   ];
+  List <Articley> art = new List<Articley> ();
 
 
+  void jiggle(index) async {
+
+    //   Articley instance = art[index];
+     Navigator.push(context, MaterialPageRoute(
+           builder: (context) => BrowseCat(cat: catagories[index])));
+    // }
+  }
 
   void update() async {
     Pull instance = Pull();
     await instance.getData();
-
-    // Navigator.pop(context, {
+    art = instance.bowser();
+    // Navigator.push(article, {
     //   'photo': instance.photo
     // });
   }
@@ -38,9 +51,7 @@ class _ExploreState extends State<Explore> {
   void initState() {
     super.initState();
     update();
-
   }
-
 
 
 
@@ -62,6 +73,7 @@ class _ExploreState extends State<Explore> {
             child: Card(
               child: ListTile(
                 onTap: (){
+                  jiggle(index);
                 },
                 title: Center(
                   child: Text(

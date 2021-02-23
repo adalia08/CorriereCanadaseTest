@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:corriere_app/pages/explore.dart';
 import 'package:corriere_app/pages/article.dart';
 import 'package:corriere_app/article2.dart';
+import 'package:corriere_app/pages/browseCat.dart';
 
 
 class MyHttpOverrides extends HttpOverrides{
@@ -21,11 +22,12 @@ void main() {
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
-      '/': (context) => Browse(),
-      '/browse': (context) => Explore(),
+      '/': (context) => Explore(),
+      '/browse': (context) => Browse(),
       '/article': (context) => Article(),
       '/article2': (context) => ArticleT(),
-      '/article3': (context) => ArticleR()
+      '/article3': (context) => ArticleR(),
+      '/browseCat': (context) => BrowseCat()
     },
   ));
 }

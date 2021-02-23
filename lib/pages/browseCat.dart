@@ -5,24 +5,34 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:corriere_app/services/pull.dart';
 
-class Browse extends StatefulWidget {
+
+
+class BrowseCat extends StatefulWidget {
+  String cat;
+  BrowseCat({Key key, @required this.cat}) : super(key: key);
+
   @override
-  _BrowseState createState() => _BrowseState();
+  _BrowseCatState createState() => _BrowseCatState();
 }
 
-class _BrowseState extends State<Browse> {
-  List<Articley> art = new List<Articley>();
+class _BrowseCatState extends State<BrowseCat> {
+  List <Articley> art = new List<Articley> ();
+  List <Articley> sart = new List<Articley> ();
+
 
   void jiggle(index) async {
+
     Articley instance = art[index];
-    dynamic result = await Navigator.push(context,
-        MaterialPageRoute(builder: (context) => Article(user: art[index])));
+    dynamic result = await Navigator.push(context, MaterialPageRoute(
+        builder: (context) => Article(user: sart[index])));
   }
 
   void update() async {
+
     Pull instance = Pull();
     await instance.getData();
     art = instance.bowser();
+    sort();
     // Navigator.push(article, {
     //   'photo': instance.photo
     // });
@@ -32,15 +42,32 @@ class _BrowseState extends State<Browse> {
   void initState() {
     super.initState();
     update();
+
+    //sort();
   }
+
+  void sort(){
+    String cata = widget.cat;
+    for(int i = 0; i < art.length; i++){
+      print(art[i].cat);
+      print(cata);
+      if (art[i].cat == cata){
+        sart.add(art[i]);
+      }
+    }
+    print(sart.length);
+    print(cata);
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       body: ListView.builder(
-        itemCount: art.length,
-        itemBuilder: (context, index) {
+        itemCount: sart.length,
+        itemBuilder: (context, index){
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6.0),
             child: Container(
@@ -51,34 +78,37 @@ class _BrowseState extends State<Browse> {
                 ),
               ),
               child: Card(
+
                 child: Column(
                   children: [
                     ListTile(
-                      onTap: () {
+                      onTap: (){
                         jiggle(index);
                       },
                       title: Text(
-                        art[index].title,
+                        sart[index].title,
+
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+
                     ),
-                    art[index].im1 != '  '
-                        ? Image.network(art[index].im1)
-                        : Image.network(
-                            'https://cnmng.ca/wp-content/uploads/2021/02/Shieldlogo_cnmng-sm.jpg'
-                          ),
-                    Text(art[index].author + ' ' + art[index].date),
-                    Text(art[index].cat + ' ' + art[index].lang),
+                    sart[index].im1 != '  ' ? Image.network(sart[index].im1) : Image.network('https://cnmng.ca/wp-content/uploads/2021/02/Shieldlogo_cnmng-sm.jpg'),
+
+                    Text(sart[index].author + ' ' + sart[index].date),
+                    Text(sart[index].cat + ' ' + sart[index].lang),
                   ],
                 ),
+
               ),
             ),
           );
         },
       ),
+
+
     );
   }
 }

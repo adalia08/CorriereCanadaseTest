@@ -2,7 +2,7 @@ import 'package:http/http.dart';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'dart:convert';
 
-class Article {
+class Articley {
   String title;
   String author;
   String date;
@@ -16,7 +16,7 @@ class Article {
   String im5;
   String video;
 
-  Article(this.title, this.author, this.date, this.content, this.cat, this.lang, this.im1, this.im2,
+  Articley(this.title, this.author, this.date, this.content, this.cat, this.lang, this.im1, this.im2,
       this.im3, this.im4, this.im5, this.video);
 }
 
@@ -27,7 +27,7 @@ class Pull {
 
   String res; //location url for api endpoint
   int x;
-  List<Article> browser = new List<Article> ();
+  List<Articley> browser = new List<Articley> ();
 
   Pull();
 
@@ -56,9 +56,9 @@ class Pull {
         print('date' + date);
         String content = test[4 + (14 * mult)];
         print('content' + content);
-        String cat = test[5 + (14 * mult)];
+        String cat = test[5 + (14 * mult)].trim();
         print('catagory' + cat);
-        String lang = test[6 + (14 * mult)];
+        String lang = test[6 + (14 * mult)].trim();
         print('language' + lang);
         String im1 = test[7 + (14 * mult)].trim();
         print('im1' + im1);
@@ -72,7 +72,7 @@ class Pull {
         print('im5' + im5);
         String video = test[12 + (14 * mult)].trim();
         print('video' + video);
-        Article a = new Article(title, author, date, content, cat, lang, im1, im2, im3, im4, im5, video);
+        Articley a = new Articley(title, author, date, content, cat, lang, im1, im2, im3, im4, im5, video);
         browser.add(a);
 
         mult++;
@@ -100,7 +100,7 @@ class Pull {
       //   weather = 'error';
     }
   }
-  List <Article> bowser (){
+  List <Articley> bowser (){
     return browser;
   }
 }
